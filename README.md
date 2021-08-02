@@ -39,7 +39,7 @@ npm run start
 Finally, navigate to `http://localhost:5050/` and you should see the API running!
 
 
-### Running the build
+## Running the build
 
 All the different build steps are orchestrated via [npm scripts](https://docs.npmjs.com/misc/scripts).
 Npm scripts basically allow us to call (and chain) terminal commands via npm.
@@ -60,11 +60,52 @@ Below is a list of all the scripts this template has available:
 
 Since we're developing with TypeScript, it is important for the codes to be transpiled first to JavaScript before running the node server. It is best to deploy the app using: `npm run server` or `npm run start` command.
 
+## Postman collection
+Attached postman collection to test the APIs without using the UI.
+Includes 5 APIs
+
+```
+GET: http://localhost:5050/api/gateways
+```
+
+```
+GET: http://localhost:5050/api/devices/6107154c311d462d1c1d0d2c
+```
+
+```
+POST: http://localhost:5050/api/gateways
+```
+
+```
+POST: http://localhost:5050/api/devices
+```
+
+```
+DELETE: http://localhost:5050/api/devices/61080270311d462d1c1d0de5
+```
+
 
 # Frontend
-
 
 ```
 cd <project_name>/Front
 npm install
 ```
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.4.
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
