@@ -1,1 +1,65 @@
-<p>add works!</p>
+<main>
+  <div class="container mt-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="pt-3 pb-4 text-center font-bold font-up deep-purple-text">{{'addGateway' | translate}}</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mb-4">
+            <button type="button" class="btn btn-primary float-right" (click)="backtoList()">{{'backtoList' | translate}}</button>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-6 justify-content-center">
+            <form [formGroup]="form">
+              <div class="form-group">
+                <label for="serialNumber">{{'serial' | translate}}</label>
+                <input type="text" formControlName="serial" class="form-control"
+                  [ngClass]="{'is-invalid': form.get('serial').invalid && (form.get('serial').dirty || form.get('serial').touched)}"
+                  id="serialNumber">
+                <small class="form-text text-muted">{{'uniqueSerial' | translate}}</small>
+                <div class="col-sm-12"
+                  *ngIf="form.get('serial').invalid && (form.get('serial').dirty || form.get('serial').touched)">
+                  <small class="text-danger" *ngIf="form.get('serial')?.errors?.required">
+                    {{'requiredField' | translate}}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="gatewayName">{{'name' | translate}}</label>
+                <input type="text" formControlName="name" class="form-control"
+                  [ngClass]="{'is-invalid': form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)}"
+                  id="gatewayName">
+                <div class="col-sm-12"
+                  *ngIf="form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)">
+                  <small class="text-danger" *ngIf="form.get('name')?.errors?.required">
+                    {{'requiredField' | translate}}
+                  </small>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ipAddress">{{'ip' | translate}}</label>
+                <input type="text" formControlName="IP" class="form-control"
+                  [ngClass]="{'is-invalid': form.get('IP').invalid && (form.get('IP').dirty || form.get('IP').touched)}"
+                  id="ipAddress">
+                <div class="col-sm-12"
+                  *ngIf="form.get('IP').invalid && (form.get('IP').dirty || form.get('IP').touched)">
+                  <small class="text-danger" *ngIf="form.get('IP')?.errors?.required">
+                    {{'requiredField' | translate}}
+                  </small>
+                  <small class="text-danger" *ngIf="form.get('IP')?.errors?.pattern">
+                    {{'invalidIP' | translate}}
+                  </small>
+                </div>
+              </div>
+              <button type="submit" (click)="save()" [disabled]="form.invalid" class="btn btn-primary">{{'submit' | translate}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

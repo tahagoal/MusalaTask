@@ -1,4 +1,27 @@
 {
   "gateway": "Gateway",
-  "device": "Device"
+  "gatewaytable": "Gateways Table",
+  "device": "Device",
+  "actions": "Actions",
+  "addDevice": "Add Device",
+  "addGateway": "Add Gateway",
+  "devices": "Devices",
+  "gatewaydev": "Gateway Devices",
+  "serial": "Serial Number",
+  "name": "Name",
+  "ip": "IP",
+  "uniqueSerial": "Serial number has to be unique",
+  "submit": " Submit",
+  "requiredField": "This field is required",
+  "invalidIP": "Invalid IP",
+  "uid": "UID",
+  "vendor":"Vendor",
+  "date":"Date",
+  "status":"Status",
+  "online":"Online",
+  "offline": "Offline",
+  "devicetable": "Devices Table",
+  "deleteDevice": "Delete Device",
+  "nodataFound": "No data found",
+  "backtoList": "Back to list"
 }

@@ -8,6 +8,10 @@ const routes: Routes = [
       {
         path: "gateway",
         loadChildren: () => import('./modules/gateway/gateway.module').then(m => m.GatewayModule)
+      },
+      {
+        path: "device",
+        loadChildren: () => import('./modules/device/device.module').then(m => m.DeviceModule)
       }
     ]
   }

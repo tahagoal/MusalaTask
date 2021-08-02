@@ -9,8 +9,6 @@ export interface IResource {
     path: string,
     params: HttpParams,
     options: { [key: string]: any }
-    // TODO introduce ApiHttpResponse
-    // ): Observable<ApiHttpResponse<T> | ApiHttpErrorResponse>;
   ): Observable<T | ApiHttpErrorResponse>;
 
   post<T>(
@@ -18,8 +16,6 @@ export interface IResource {
     body: { [key: string]: any },
     params: HttpParams,
     options: { [key: string]: any }
-    // TODO introduce ApiHttpResponse
-    // ): Observable<ApiHttpResponse<T> | ApiHttpErrorResponse>;
   ): Observable<T | ApiHttpErrorResponse>;
 
   put<T>(
@@ -27,8 +23,6 @@ export interface IResource {
     body: { [key: string]: any },
     params: HttpParams,
     options: { [key: string]: any }
-    // TODO introduce ApiHttpResponse
-    // ): Observable<ApiHttpResponse<T> | ApiHttpErrorResponse>;
   ): Observable<T | ApiHttpErrorResponse>;
 
   patch<T>(
@@ -36,16 +30,12 @@ export interface IResource {
     body: { [key: string]: any },
     params: HttpParams,
     options: { [key: string]: any }
-    // TODO introduce ApiHttpResponse
-    // ): Observable<ApiHttpResponse<T> | ApiHttpErrorResponse>;
   ): Observable<T | ApiHttpErrorResponse>;
 
   delete<T>(
     path: string,
     params: HttpParams,
     options: { [key: string]: any }
-    // TODO introduce ApiHttpResponse
-    // ): Observable<ApiHttpResponse<T> | ApiHttpErrorResponse>;
   ): Observable<T | ApiHttpErrorResponse>;
 }
 
@@ -129,8 +119,8 @@ export abstract class AbstractResource implements IResource {
    * Handle a successful HTTP response.
    */
   protected handleSuccess<T>(): (response: HttpResponse<T>) => T {
-    return ({ headers, status, body }: HttpResponse<T>): T => {
-      return { headers, status, ...body };
+    return ({body }: HttpResponse<T>): T => {
+      return body;
     };
   }
 
@@ -144,7 +134,6 @@ export abstract class AbstractResource implements IResource {
         // A client-side or network error occurred. Handle it accordingly.
       } else {
         // The backend returned an unsuccessful response code.
-        // The response body may contain clues as to what went wrong.
       }
 
       return throwError(new ApiHttpErrorResponse(status, error, message));

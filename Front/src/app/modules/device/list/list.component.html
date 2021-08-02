@@ -1,0 +1,51 @@
+<main>
+
+  <!--MDB Tables-->
+  <div class="container mt-4">
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="pt-3 pb-4 text-center font-bold font-up deep-purple-text">{{'devicetable' | translate}}</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mb-4">
+            <button type="button" class="btn btn-primary float-right" (click)="addDevice()">{{'addDevice' | translate}}</button>
+          </div>
+        </div>
+        <table class="table table-striped" *ngIf="devices && devices.length">
+          <!--Table head-->
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>{{'uid' | translate}}</th>
+              <th>{{'vendor' | translate}}</th>
+              <th>{{'date' | translate}}</th>
+              <th>{{'status' | translate}}</th>
+              <th>{{'actions' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let device of devices; let i = index;">
+              <th>{{i+1}}</th>
+              <td>{{device.uid}}</td>
+              <td>{{device.vendor}}</td>
+              <td>{{device.date | date:'dd-MM-yyyy hh:mm'}}</td>
+              <td>{{device.status ? ('online' | translate) : ('offline' | translate)}}</td>
+              <td><button type="button" class="btn btn-danger" (click)="deleteDevice(device._id)">{{'deleteDevice' | translate}}</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row" *ngIf="devices.length == 0">
+          <div class="col-md-12">
+            <h2 class="pt-3 pb-4 text-center font-bold font-up deep-purple-text">{{'nodataFound' | translate}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
