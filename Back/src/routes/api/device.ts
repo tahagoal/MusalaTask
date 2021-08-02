@@ -28,17 +28,6 @@ router.post(
         .status(HttpStatusCodes.BAD_REQUEST)
         .json({ errors: errors.array() });
     }
-
-    const { uid, vendor, status, gatewayId } = req.body;
-
-    // Build device object based on IDevice
-    const deviceFields = {
-      uid,
-      vendor,
-      status,
-      gatewayId
-    };
-
     try {
 
       let device: IDevice = await Device.findOne({ uid: req.body.uid });
@@ -47,25 +36,34 @@ router.post(
         res.status(HttpStatusCodes.BAD_REQUEST).send("Device with this UID already exist")
       }
 
-      let gateway: IGateway = await Gateway.findOne({ id: req.body.gatewayId });
-      if (!gateway) {
-        // Device with this serial already there
-        res.status(HttpStatusCodes.BAD_REQUEST).send("Gateway with this ID not exist")
-      }
-      else{
-      // Also check here if it exceeds 10 devices per gateway or not
-      const devices = await Device.find({gatewayId: req.params.gatewayId});
-        if(devices.length >= 10){
-          res.status(HttpStatusCodes.BAD_REQUEST).send("No more than 10 device are allowed for a gateway")
+      else {
+        const gateway: IGateway = await Gateway.findOne({ _id: req.body.gatewayId });
+        const devices: IDevice[] = await Device.find({ gatewayId: req.body.gatewayId });
+        if (!gateway) {
+          // Gateway with this gatewayId not exist
+          res.status(HttpStatusCodes.BAD_REQUEST).send("Gateway with this ID not exist")
+        }
+        else if (devices.length >= 10) {
+          // Also check here if it exceeds 10 devices per gateway or not
+          res.status(HttpStatusCodes.BAD_REQUEST).send("No more than 10 device are allowed for a single gateway")
+        }
+        else {
+          const { uid, vendor, status, gatewayId } = req.body;
+
+          // Build device object based on IDevice
+          const deviceFields = {
+            uid,
+            vendor,
+            status,
+            gatewayId
+          };
+          // Create
+          device = new Device(deviceFields);
+          await device.save();
+          res.json(device);
         }
       }
 
-      // Create
-      device = new Device(deviceFields);
-
-      await device.save();
-
-      res.json(device);
     } catch (err) {
       console.error(err.message);
       res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -77,12 +75,12 @@ router.post(
 // @route   GET api/devices/:gatewayId
 // @desc    Get devices by gatewayId
 // @access  Public
-router.get("/:gatewayId", async (_req: Request, res: Response) => {
+router.get("/:gatewayId", async (req: Request, res: Response) => {
   try {
 
-    const devices = await Device.find({gatewayId: _req.params.gatewayId});
+    const devices = await Device.find({ gatewayId: req.params.gatewayId });
     res.json(devices);
-  
+
   } catch (err) {
     console.error(err.message);
     res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -93,10 +91,10 @@ router.get("/:gatewayId", async (_req: Request, res: Response) => {
 // @route   DELETE api/device
 // @desc    Delete device
 // @access  Private
-router.delete("/", async (req: Request, res: Response) => {
+router.delete("/:deviceId", async (req: Request, res: Response) => {
   try {
     // Remove Device
-    await Device.findOneAndRemove({ id: req.deviceId });
+    await Device.findOneAndRemove({ _id: req.params.deviceId });
 
     res.json({ msg: "Device removed" });
   } catch (err) {

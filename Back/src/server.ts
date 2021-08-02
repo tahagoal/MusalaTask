@@ -1,5 +1,5 @@
-import bodyParser from "body-parser";
 import express from "express";
+import cors from 'cors';
 
 import connectDB from "../config/database";
 import device from "./routes/api/device";
@@ -10,10 +10,15 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
+// CORS Origin allowed localhost
+app.use(cors());
+app.options('*', cors());
+
 // Express configuration
-app.set("port", process.env.PORT || 5000);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.set("port", process.env.PORT || 5050);
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 // @route   GET /
 // @desc    Test Base API
