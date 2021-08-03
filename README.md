@@ -1,4 +1,4 @@
-# Mustala Task
+# Musala Soft Task
 
 # Prerequisites
 
