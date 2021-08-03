@@ -35,6 +35,7 @@ export class AddComponent implements OnInit {
   public save(){
     this.service.createGateway(this.form.value).subscribe((res) => {
       this.toast.success('Gateway Created Successfully', 'Success');
+      this.backtoList();
     })
   }
 
