@@ -16,6 +16,11 @@ To build and run this app locally you will need a few things:
 git clone https://github.com/tahagoal/MustalaTask
 ```
 
+# Database
+
+- Create a new DB called `Gateways`
+- Run Mongo db on `mongodb://localhost:27017/Gateways`, as provided on `Back/config/default.json`
+
 # Backend
 
 - Install dependencies
@@ -67,6 +72,10 @@ Includes 5 APIs
 
 ```
 GET: http://localhost:5050/api/gateways
+```
+
+```
+GET: http://localhost:5050/api/gateways/6109473dfd8bfc9fccf4fe73
 ```
 
 ```
